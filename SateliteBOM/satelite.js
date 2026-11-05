@@ -23,7 +23,7 @@ document.getElementById("bienvenida").textContent =
 
 document.getElementById("conHistorial").addEventListener("click", function() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.assign("https://www.goggle.es/");
+        window.opener.location.assign("https://www.google.es/");
     }
 });
 
@@ -32,7 +32,7 @@ document.getElementById("conHistorial").addEventListener("click", function() {
 
 document.getElementById("sinHistorial").addEventListener("click", function() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.replace("https://www.goggle.es/");
+        window.opener.location.replace("https://www.google.es/");
     }
 });
 
