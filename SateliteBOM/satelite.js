@@ -22,17 +22,18 @@ document.getElementById("bienvenida").textContent =
 // Redirigir con historial
 
 document.getElementById("conHistorial").addEventListener("click", function() {
-    if (window.opener && !window.opener.closed) {
-        window.opener.location.assign("https://www.google.es/");
-    }
+  if (window.opener && !window.opener.closed) {
+    window.opener.location.href = "https://www.google.com/";
+  } else {
+    alert("No se encuentra la ventana principal. Abre esta ventana desde index.html.");
+  }
 });
 
 
 // Redirigir sin historial
-
 document.getElementById("sinHistorial").addEventListener("click", function() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.replace("https://www.google.es/");
+        window.opener.location.replace("https://www.wikipedia.org/");
     }
 });
 

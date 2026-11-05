@@ -19,7 +19,7 @@ boton.addEventListener("click", function() {
 
     // Abrir ventana satélite
     const satelite = window.open(
-        "satelite.html",
+        "./SateliteBOM/satelite.html",
         "VentanaSatelite",
         `width=${ancho},height=${alto},left=${izquierda},top=${arriba}`
     );

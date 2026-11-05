@@ -1,0 +1,145 @@
+
+/* =====================================
+   ESTILOS GENERALES - SATÉLITE DEL BOM
+   ===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #e8efff, #f5f7fc);
+    color: #243047;
+    min-height: 100vh;
+    padding: 35px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: #244b9b;
+    font-size: 2rem;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+    margin: 12px 0;
+    text-align: center;
+}
+
+/* Contenido principal de ambas páginas */
+
+body > h1,
+body > p,
+body > button {
+    width: 100%;
+    max-width: 520px;
+}
+
+body > h1 {
+    background: white;
+    padding: 25px;
+    border-radius: 16px 16px 0 0;
+    margin-bottom: 0;
+    box-shadow: 0 5px 20px rgba(30, 55, 100, 0.08);
+}
+
+body > p {
+    background: white;
+    max-width: 520px;
+    padding: 12px 25px;
+    margin: 0;
+}
+
+body > p:last-child {
+    border-radius: 0 0 16px 16px;
+    padding-bottom: 25px;
+}
+
+/* Botones */
+
+button {
+    max-width: 470px;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 9px;
+    background: #315fc4;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #204694;
+    transform: translateY(-2px);
+}
+
+button:focus-visible {
+    outline: 3px solid #f0b429;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    background: #8995aa;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mensajes de información */
+
+#mensaje,
+#bienvenida,
+#cuentaAtras {
+    color: #40516d;
+    font-weight: 500;
+}
+
+#bienvenida {
+    color: #244b9b;
+    font-weight: bold;
+    padding: 18px 25px;
+}
+
+#cuentaAtras {
+    color: #b45309;
+    font-weight: bold;
+}
+
+/* Enlaces */
+
+a {
+    color: #244b9b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Adaptación a móviles */
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 14px;
+        width: 100%;
+    }
+}
