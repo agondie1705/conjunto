@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guardian</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <h1>personalizacion</h1>
+    <!--contenedor vacio-->
+    <div id="contenedor-bienvenida">
+    
+    </div>
+    <!--formulario-->
+    <form id="formulario">
+        <!--nombre-->
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <br><br>
+        <!--color de fondo-->
+        <label for="color-fondo">Color de fondo:</label>
+        <input type="color" id="color-fondo">
+        <br><br>
+        <!--tema-->
+        <label for="tema">Tema:</label>
+        <select id="tema">
+            <option value="claro">Claro</option>
+            <option value="oscuro">Oscuro</option>
+        </select>
+        <br><br>
+        <!--botones-->
+        <button type="submit">Guardar</button>
+        <button type="button" id="restablecer">Restablecer</button>    
+    </form>
+    
+    <script src="./script.js"></script>
+</body>
+</html>
