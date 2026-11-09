@@ -6,6 +6,11 @@ const color = document.getElementById("color-fondo");
 const tema = document.getElementById("tema");
 const restablecer = document.getElementById("restablecer");
 
+/**
+ * Aplica el tema seleccionado por el usuario.
+ * Añade la clase correspondiente al elemento body y elimina la contraria.
+ * @returns {void}
+ */
 // Cambiamos el tema según la opción seleccionada
 function aplicarTema() {
     if (tema.value === "oscuro") {
@@ -16,7 +21,11 @@ function aplicarTema() {
         document.body.classList.remove("oscuro");
     }
 }
-
+/**
+ * Muestra un mensaje de bienvenida utilizando el nombre introducido.
+ * Limpia previamente el contenedor para evitar mensajes duplicados.
+ * @returns {void}
+ */
 // Creamos el mensaje de bienvenida
 function mostrarBienvenida() {
     // Limpiamos el contenedor para no duplicar el mensaje
@@ -33,17 +42,24 @@ function mostrarBienvenida() {
         contenedor.appendChild(parrafo);
     }
 }
-
-// El color cambia al mover el selector
+/**
+ * Actualiza el color de fondo de la página cuando el usuario modifica el selector.
+ */
 color.addEventListener("input", () => {
     document.body.style.backgroundColor = color.value;
 });
-
+/**
+ * Detecta el cambio de tema y aplica el estilo correspondiente.
+ */
 // El tema cambia al seleccionar una opción
 tema.addEventListener("change", () => {
     aplicarTema();
 });
-
+/**
+ * Guarda el nombre, el color y el tema seleccionados mediante cookies.
+ * Las cookies tienen una duración de siete días.
+ * @returns {void}
+ */
 // Guardamos las preferencias en cookies
 function guardar() {
     const fecha = new Date();
@@ -58,13 +74,19 @@ function guardar() {
 
     mostrarBienvenida();
 }
-
+/**
+ * Gestiona el envío del formulario y evita que la página se recargue.
+ */
 // Al enviar el formulario, guardamos las preferencias
 formulario.addEventListener("submit", (event) => {
     event.preventDefault();
     guardar();
 });
-
+/**
+ * Busca una cookie por su nombre y obtiene su valor.
+ * @param {string} claveBuscada - Nombre de la cookie que se desea buscar.
+ * @returns {string|null} Valor encontrado o null si la cookie no existe.
+ */
 // Buscamos una cookie por su nombre
 function obtenercookies(claveBuscada) {
     const cookies = document.cookie.split("; ");
@@ -81,7 +103,9 @@ function obtenercookies(claveBuscada) {
 
     return null;
 }
-
+/**
+ * Recupera de las cookies las preferencias guardadas anteriormente.
+ */
 // Recuperamos las preferencias guardadas
 const nombreGuardado = obtenercookies("nombre");
 const colorGuardado = obtenercookies("color");
