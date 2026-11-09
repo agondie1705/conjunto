@@ -1,102 +1,135 @@
-//buscamos el contenedor
-const contenedor=document.getElementById("contenedor-bienvenida");
-const formulario=document.getElementById("formulario");
-const nombre=document.getElementById("nombre");
-const color=document.getElementById("color-fondo");
-const tema=document.getElementById("tema");
-const restablecer=document.getElementById("restablecer");
-//crea el titulo
-    const titulo=document.createElement("h2");
-    //llena el titulo
-    titulo.textContent=("Bienvenido de nuevo:]")
-    const parrafo=document.createElement("p");
-    parrafo.textContent=("nos alegra tenerte por aqui de nuevo")
-    contenedor.appendChild(titulo);
-    contenedor.appendChild(parrafo);
+// Buscamos los elementos del HTML
+const contenedor = document.getElementById("contenedor-bienvenida");
+const formulario = document.getElementById("formulario");
+const nombre = document.getElementById("nombre");
+const color = document.getElementById("color-fondo");
+const tema = document.getElementById("tema");
+const restablecer = document.getElementById("restablecer");
 
-color.addEventListener("input",()=>{
-    document.body.style.backgroundColor=color.value;
-});
-tema.addEventListener("change",()=>{
-    if(tema.value==="oscuro"){
+// Cambiamos el tema según la opción seleccionada
+function aplicarTema() {
+    if (tema.value === "oscuro") {
         document.body.classList.add("oscuro");
         document.body.classList.remove("claro");
-    }else{
+    } else {
         document.body.classList.add("claro");
         document.body.classList.remove("oscuro");
     }
-});
-function guardar(){
-    const fecha=new Date();
-    //sumamos 7 dias a la fecha actual
-    fecha.setDate(fecha.getDate()+7);
-    //guardamos el nombre durante 7 dias
-    document.cookie=`nombre=${nombre.value};expires=${fecha.toUTCString()};path=/`;
-    //guardamos el color durante 7 dias
-    document.cookie=`color=${color.value};expires=${fecha.toUTCString()};path=/`;
-    //guardamos el tema durante 7 dias
-    document.cookie=`tema=${tema.value};expires=${fecha.toUTCString()};path=/`;
 }
-formulario.addEventListener("submit",(event)=>{
-    //evitamos que se recargue la pagina
+
+// Creamos el mensaje de bienvenida
+function mostrarBienvenida() {
+    // Limpiamos el contenedor para no duplicar el mensaje
+    contenedor.textContent = "";
+
+    if (nombre.value.trim() !== "") {
+        const titulo = document.createElement("h2");
+        titulo.textContent = `¡Bienvenido de nuevo, ${nombre.value}!`;
+
+        const parrafo = document.createElement("p");
+        parrafo.textContent = "Nos alegra tenerte por aquí de nuevo.";
+
+        contenedor.appendChild(titulo);
+        contenedor.appendChild(parrafo);
+    }
+}
+
+// El color cambia al mover el selector
+color.addEventListener("input", () => {
+    document.body.style.backgroundColor = color.value;
+});
+
+// El tema cambia al seleccionar una opción
+tema.addEventListener("change", () => {
+    aplicarTema();
+});
+
+// Guardamos las preferencias en cookies
+function guardar() {
+    const fecha = new Date();
+    //añadimos 7 días a la fecha actual para que la cookie caduque en una semana
+    fecha.setDate(fecha.getDate() + 7);
+    // Guardamos las preferencias en cookies con la fecha de caducidad
+    document.cookie = `nombre=${encodeURIComponent(nombre.value)}; expires=${fecha.toUTCString()}; path=/`;
+    // Guardamos el color seleccionado en una cookie
+    document.cookie = `color=${color.value}; expires=${fecha.toUTCString()}; path=/`;
+    // Guardamos el tema seleccionado en una cookie
+    document.cookie = `tema=${tema.value}; expires=${fecha.toUTCString()}; path=/`;
+
+    mostrarBienvenida();
+}
+
+// Al enviar el formulario, guardamos las preferencias
+formulario.addEventListener("submit", (event) => {
     event.preventDefault();
     guardar();
 });
-function obtenercookies(){
-//todas las cookies
-const cookies=document.cookie.split("; ");
-//recorremos las cookies
-for(let par of cookies){
-    const[clave,valor]=par.split("=");
-    if(clave==="nombre"){
-        nombre.value=valor;
-        return valor;
+
+// Buscamos una cookie por su nombre
+function obtenercookies(claveBuscada) {
+    const cookies = document.cookie.split("; ");
+
+    for (let par of cookies) {
+        const posicion = par.indexOf("=");
+        const clave = par.substring(0, posicion);
+        const valor = par.substring(posicion + 1);
+
+        if (clave === claveBuscada) {
+            return decodeURIComponent(valor);
+        }
     }
+
     return null;
 }
+
+// Recuperamos las preferencias guardadas
+const nombreGuardado = obtenercookies("nombre");
+const colorGuardado = obtenercookies("color");
+const temaGuardado = obtenercookies("tema");
+
+// Recuperamos el nombre
+if (nombreGuardado !== null) {
+    nombre.value = nombreGuardado;
 }
 
-const temaguardado = document.cookie.split("; ").find(par => par.startsWith("tema="));
-//si hay un tema guardado, lo aplicamos
-if (temaguardado) {
-    tema.value = temaguardado.split("=")[1];
-    if(tema.value==="oscuro"){
-        document.body.classList.add("oscuro");
-        document.body.classList.remove("claro");
-    }else{
-        document.body.classList.add("claro");
-        document.body.classList.remove("oscuro");
-    }
+// Recuperamos el color
+if (colorGuardado !== null) {
+    color.value = colorGuardado;
+    document.body.style.backgroundColor = colorGuardado;
 }
 
+// Recuperamos el tema
+if (temaGuardado !== null) {
+    tema.value = temaGuardado;
+} else {
+    tema.value = "claro";
+}
+
+aplicarTema();
+mostrarBienvenida();
+
+// Restablecemos la página a sus valores iniciales
 function restablecerInterfaz() {
-
     // Eliminamos las cookies
     document.cookie = "nombre=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     document.cookie = "color=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     document.cookie = "tema=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 
-    // Eliminamos el color de fondo en línea
+    // Quitamos el color y las clases del tema
     document.body.style.backgroundColor = "";
-
-    // Eliminamos las clases de los temas
     document.body.classList.remove("claro");
     document.body.classList.remove("oscuro");
 
-    // Limpiamos los campos del formulario
+    // Vaciamos los campos del formulario
     nombre.value = "";
-    color.value = "#000000";
+    color.value = "#ffffff";
     tema.value = "claro";
 
-    // Eliminamos el contenido de bienvenida
-    const contenedor = document.getElementById("contenedor-bienvenida");
-    while (contenedor.firstChild) {
-        contenedor.removeChild(contenedor.firstChild);
-    }
+    // Eliminamos el mensaje de bienvenida
+    contenedor.textContent = "";
 }
-// Agregamos un evento al botón de restablecer
+
+// Al pulsar el botón, restablecemos la interfaz
 restablecer.addEventListener("click", () => {
-
     restablecerInterfaz();
-
 });
